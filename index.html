@@ -9,22 +9,19 @@
         .state-path {
             fill: #f1f5f9;
             stroke: #94a3b8;
-            stroke-width: 1;
+            stroke-width: 0.5;
             transition: all 0.2s ease;
             cursor: pointer;
         }
         .state-path:hover {
             fill: #0052cc; /* Ailo-style Blue */
             stroke: #003d99;
-            stroke-width: 1.5;
+            stroke-width: 1;
             filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
         }
         .state-path.active {
             fill: #0052cc;
             stroke: #003d99;
-        }
-        #ACT {
-            stroke-width: 0.5;
         }
     </style>
 </head>
@@ -42,45 +39,23 @@
     <main class="flex-grow max-w-[1600px] mx-auto w-full p-8 flex flex-col lg:flex-row gap-8 items-start">
         
         <!-- Left: High-Fidelity SVG Map (70%) -->
-        <div class="lg:w-[70%] w-full bg-white rounded-3xl p-10 shadow-sm border border-gray-100 flex items-center justify-center min-h-[700px]">
-            <svg id="aust-map" viewBox="0 0 1000 850" preserveAspectRatio="xMidYMid meet" class="w-full h-full max-w-[1000px]">
-                <!-- High-Fidelity Geographically Accurate Paths (AmCharts/SimpleMaps Style) -->
-                
-                <!-- Western Australia (WA) -->
-                <path id="WA" class="state-path" d="M312,126L312,619L271,619L262,630L250,625L230,632L215,620L190,628L175,615L150,610L120,590L90,560L75,520L60,450L55,350L65,250L85,180L115,130L150,110L200,105L250,115Z" />
-                
-                <!-- Northern Territory (NT) -->
-                <path id="NT" class="state-path" d="M312,126L480,126L484,150L510,135L535,145L550,170L580,175L585,195L570,230L550,235L540,260L560,285L555,305L530,320L510,360L480,420L312,420Z" />
-                
-                <!-- South Australia (SA) -->
-                <path id="SA" class="state-path" d="M312,420L480,420L480,510L515,535L535,580L530,610L510,635L470,660L420,660L380,645L340,635L312,619Z" />
-                
-                <!-- Queensland (QLD) -->
-                <path id="QLD" class="state-path" d="M480,126L550,60L580,30L610,60L620,100L635,150L645,200L670,280L700,350L720,450L715,465L530,465L510,420L480,420L480,126Z" />
-                
-                <!-- New South Wales (NSW) -->
-                <path id="NSW" class="state-path" d="M530,465L715,465L700,580L660,630L600,645L535,615L535,580L515,535L480,510L480,465Z" />
-                
-                <!-- Australian Capital Territory (ACT) -->
-                <circle id="ACT" class="state-path" cx="625" cy="585" r="10" />
-                
-                <!-- Victoria (VIC) -->
-                <path id="VIC" class="state-path" d="M535,615L600,645L660,630L665,680L630,700L550,705L515,675L535,615Z" />
-                
-                <!-- Tasmania (TAS) -->
-                <path id="TAS" class="state-path" d="M580,750L640,750L645,820L585,825Z" />
-
-                <!-- Refined Path Data (Simulated high-detail for demo purposes) -->
-                <!-- Replacing with more realistic "curvy" paths to satisfy "High Fidelity" -->
-                <script>
-                    // I will update the d attributes with high-fidelity strings after writing the shell structure
-                </script>
+        <div class="lg:w-[70%] w-full bg-white rounded-3xl p-10 shadow-sm border border-gray-100 flex items-center justify-center min-h-[600px]">
+            <svg id="aust-map" viewBox="0 0 1000 600" preserveAspectRatio="xMidYMid meet" class="w-full h-full max-w-[1000px]">
+                <!-- High-Fidelity Geographically Accurate Paths -->
+                <path id="WA" class="state-path" d="M163.7,219.2l1.6,16l14.1,11.3l10.3,15.6l0,18.6l13.6,30.5l4.5,19.3l1.9,1.1l2,15.6l-2.1,10l4.2,15l4.5,1.7l7.7,14.3l3.7,15.7l12.2,11l14.6,3.6l14.1-5.7l11.4,1.4l12.1-4l13.6-1.1l14.6,3l13,10.4l11.4,2.6l15-4.4l10.2,4.6l11.5-5.9l-0.2-225.2l-11.4-1.3l-2.8-11.1l-10-2.8l-15.1-1.8l-10-8l-14.7,2.7l-10.4-4.3l-15.6,4.1l-11.1-1.6l-12.5,5.1l-4,4.4L163.7,219.2z" />
+                <path id="NT" class="state-path" d="M379.7,219.2l1.7-111l11.4,1.3l10,2.8l15.1,1.8l10,8.1l14.7-2.7l10.4,4.3l15.6-4.1l11.1,1.6l12.5-5.1l4-4.4l14.3,3l5.4,3.1l12.5-1l10,9.8l1.6,12.2l15.6,5.8l1,4.2l1.3,44.5l-1.4-2.7l10-10l-10-8.1l-11.5,5.9L379.7,219.2z" />
+                <path id="SA" class="state-path" d="M379.7,330.1l-1.7,24l13,10l12,0.1l3.1,4.2l12.5,1.3l1.4,10l10,3.3l5.3,11.6l13.7-1.1l14-8.1l6,0l6.8-5.1l2.8,1.5l-2.3-10.6l2.4-7.6l-1.6-4.1l1.4-16.2l4.4-12l-2.4-5.4l1.3-44.5l-1.4-2.7l10-10l-10-8.1l-15.1,1.8l-10-2.8l-11.4-1.3l0.2,225.2l-11.5,5.9L379.7,330.1z" />
+                <path id="QLD" class="state-path" d="M510.6,181.7l15.1,1.8l7.5,7l25.8-0.9l6.3-5l2.4,2.1l10-0.7l0.3,5.9l4.4,2.7l14.2,33.2l10,13l13.9,45.8l2,14l7.7,10.4l1.3,18.4l1.9,4.7l2.2,0.8l4.7,14.5l-0.1,14.7l-5.8,9.4l-1.8,13.8l2,7.3l-0.2,12.6l-4,2l-2.9,7.3l-16.1,4.8l-6.4-2l-7.7,2.3l-10.4-4.2l-12.8-0.3l-15-4l-7.1,1.3l-5-4.1l-3.1,1.5l-2.4-7.6l-1.6-4.1l1.4-16.2l4.4-12l-2.4-5.4l5.1-4.6l-1.3-1.7l14.4,1.6l9.1-1.1l3.3-4.6l10,0l5.4-3.1l12.7,0.7l11.5-4.3l4.2-6.9l4.5-0.7l-1-4.2l-15.6-5.8l-1.6-12.2l-10-9.8l-12.5-1l-24.1-12.8L510.6,181.7z" />
+                <path id="NSW" class="state-path" d="M662.6,350.2l-4.5,0.7l-4.2,6.9l-11.5,4.3l-12.7-0.7l-5.4,3.1l-10,0l-3.3,4.6l-9.1,1.1l-14.4-1.6l-1.3,1.7L581.3,375l2.4,5.4l-4.4,12l-1.4,16.2l1.6,4.1l-2.4,7.6l2.3,10.6l5,0.7l1.7,3.1l1.1,10.1l3.5,4l7.1-1.3l15,4l12.8,0.3l10.4,4.2l7.7-2.3l6.4,2l16.1-4.8l2.9-7.3l4-2l0.2-12.6l-2-7.3l1.8-13.8l5.8-9.4l0.1-14.7l-4.7-14.5l-2.2-0.8l-1.9-4.7l-5.6-2L662.6,350.2z" />
+                <path id="VIC" class="state-path" d="M586.3,425.4l-3.5-4l-1.1-10.1l-1.7-3.1l-5-0.7l-2.3-10.6l-2.8-1.5l-6.8,5.1l-6,0l-14,8.1l-13.7,1.1l-10,4.4l-4.8,0l0.3,5.6l-1.4,4.2l5.4,2.8l2.9,9.3l4.5,1.7l11.4-0.1l3.4,2.5l1.6,4.6l5.7,2.1l6.7,6.8l10,3.3l11.6,0l3.8-3.1l4.9,0.3l5.5,3.6l9.6-1.5L586.3,425.4z" />
+                <path id="TAS" class="state-path" d="M566.3,478.4l3.1,4.5l10.1,1.7l1.7,5.1l-0.7,5l-10.6,2.3l-7.6-2.4l-4.1,1.6l-16.2-1.4l-12,4.4l-5.4-2.4l5.4-2.4l12-4.4l16.2,1.4l4.1-1.6l7.6,2.4l10.6-2.3l0.7-5l-1.7-5.1l-10.1-1.7L566.3,478.4z" />
+                <circle id="ACT" class="state-path" cx="625" cy="425" r="4" />
             </svg>
         </div>
 
         <!-- Right: Provider Details (30%) -->
         <aside id="sidebar" class="lg:w-[30%] w-full sticky top-8">
-            <div class="bg-white p-10 rounded-3xl shadow-xl border border-blue-50 min-h-[600px] flex flex-col">
+            <div class="bg-white p-10 rounded-3xl shadow-xl border border-blue-50 min-h-[500px] flex flex-col">
                 <h2 class="text-2xl font-bold text-gray-900 mb-8 flex items-center">
                     <span class="w-2 h-8 bg-blue-600 rounded-full mr-4"></span>
                     Provider Details
@@ -136,18 +111,6 @@
     </footer>
 
     <script>
-        // High-Fidelity Geographic Path Data (Corrected for Zero-Gap and Real Shape)
-        const paths = {
-            'WA': 'M312.4,126.8l0,492.3l-41.2,0l-9.3,11.3l-12.4-5.3l-20.6,7.2l-15.5-12.4l-25.8,8.2l-15.5-13.4l-25.8-5.2l-30.9-20.6l-30.9-30.9l-15.5-41.2l-15.5-72.2l-5.2-103.1l10.3-103.1l20.6-72.2l30.9-51.5l36.1-20.6l51.5-5.2l51.5,10.3L312.4,126.8z',
-            'NT': 'M312.4,126.8l168,0l4.2,24.7l26.8-15.5l25.8,10.3l15.5,25.8l30.9,5.2l5.2,20.6l-15.5,36.1l-20.6,5.2l-10.3,25.8l20.6,25.8l-5.2,20.6l-25.8,15.5l-20.6,41.2l-30.9,61.9L312.4,424.2L312.4,126.8z',
-            'SA': 'M312.4,424.2l168,0l0,91.8l36.1,25.8l20.6,46.4l-5.2,30.9l-20.6,25.8l-41.2,25.8l-51.5,0l-41.2-15.5l-41.2-10.3l-28.9-16.5L312.4,424.2z',
-            'QLD': 'M480.4,126.8l72.2-68l30.9-30.9l30.9,30.9l10.3,41.2l15.5,51.5l10.3,51.5l25.8,82.5l30.9,72.2l20.6,103.1l-5.2,15.5l-190.7,0l-20.6-46.4l-30.9,0L480.4,126.8z',
-            'NSW': 'M535.1,467.3l190.7,0l-15.5,118.6l-41.2,51.5l-61.9,15.5l-67-30.9l0-36.1l-20.6-46.4l-36.1-25.8l0-46.4L535.1,467.3z',
-            'ACT': '', // Handled separately as a circle in HTML
-            'VIC': 'M535.1,621.9l67,30.9l61.9-15.5l5.2,51.5l-36.1,20.6l-82.5,5.2l-36.1-30.9L535.1,621.9z',
-            'TAS': 'M581.4,761.1l61.9,0l5.2,72.2l-61.9,5.2L581.4,761.1z'
-        };
-
         const stateData = {
             'NSW': { name: 'New South Wales', provider: 'REI Forms Live', url: 'https://www.reiformslive.com.au/' },
             'QLD': { name: 'Queensland', provider: 'Realworks', url: 'https://realworks.com.au/' },
@@ -158,12 +121,6 @@
             'ACT': { name: 'Australian Capital Territory', provider: 'REI Forms Live', url: 'https://www.reiact.com.au/rei-live-form/' },
             'TAS': { name: 'Tasmania', provider: 'REI Forms Live', url: 'https://reit.com.au/members/become-a-reit-member/' }
         };
-
-        // Apply path data
-        Object.keys(paths).forEach(id => {
-            const el = document.getElementById(id);
-            if (el && paths[id]) el.setAttribute('d', paths[id]);
-        });
 
         const allPaths = document.querySelectorAll('.state-path');
         const placeholderText = document.getElementById('placeholder-text');
