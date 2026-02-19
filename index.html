@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ailo Projects: Forms Provider Reference</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .state-path {
+            fill: #e2e8f0;
+            stroke: #ffffff;
+            stroke-width: 1;
+            transition: fill 0.2s, transform 0.2s;
+            cursor: pointer;
+        }
+        .state-path:hover {
+            fill: #94a3b8;
+        }
+        .state-path.active {
+            fill: #3b82f6;
+        }
+        #act-path {
+            stroke: #475569;
+            stroke-width: 0.5;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen flex flex-col font-sans">
+
+    <!-- Header -->
+    <header class="bg-white border-b border-gray-200 py-6 px-8 shadow-sm">
+        <div class="max-w-7xl mx-auto">
+            <h1 class="text-2xl font-bold text-gray-900">Ailo Projects: Forms Provider Reference</h1>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow max-w-7xl mx-auto w-full p-8 flex flex-col md:flex-row gap-8">
+        
+        <!-- Left: SVG Map (70%) -->
+        <div class="md:w-7/10 bg-white p-6 rounded-xl shadow-md border border-gray-200 flex items-center justify-center">
+            <svg id="aust-map" viewBox="0 0 800 600" class="w-full h-auto max-h-[600px]">
+                <!-- WA -->
+                <path id="WA" class="state-path" d="M125,123 L312,123 L312,475 L285,502 L198,495 L145,465 L115,400 L105,300 L125,123 Z" />
+                <!-- NT -->
+                <path id="NT" class="state-path" d="M312,123 L450,123 L450,320 L312,320 Z" />
+                <!-- SA -->
+                <path id="SA" class="state-path" d="M312,320 L450,320 L450,400 L500,430 L500,475 L480,500 L380,500 L312,475 Z" />
+                <!-- QLD -->
+                <path id="QLD" class="state-path" d="M450,123 L550,50 L580,80 L630,220 L620,350 L450,350 Z" />
+                <!-- NSW -->
+                <path id="NSW" class="state-path" d="M450,350 L620,350 L600,450 L500,475 L500,430 L450,400 Z" />
+                <!-- ACT (Positioned over NSW) -->
+                <circle id="ACT" class="state-path" cx="560" cy="420" r="8" />
+                <!-- VIC -->
+                <path id="VIC" class="state-path" d="M500,475 L600,450 L580,510 L500,510 Z" />
+                <!-- TAS -->
+                <path id="TAS" class="state-path" d="M520,540 L560,540 L560,580 L520,580 Z" />
+                
+                <!-- Labels (Optional but helpful for visual confirmation) -->
+                <text x="210" y="300" class="pointer-events-none fill-gray-600 font-bold" text-anchor="middle">WA</text>
+                <text x="381" y="220" class="pointer-events-none fill-gray-600 font-bold" text-anchor="middle">NT</text>
+                <text x="381" y="420" class="pointer-events-none fill-gray-600 font-bold" text-anchor="middle">SA</text>
+                <text x="535" y="220" class="pointer-events-none fill-gray-600 font-bold" text-anchor="middle">QLD</text>
+                <text x="535" y="390" class="pointer-events-none fill-gray-600 font-bold" text-anchor="middle">NSW</text>
+                <text x="550" y="495" class="pointer-events-none fill-gray-600 font-bold" text-anchor="middle">VIC</text>
+                <text x="540" y="595" class="pointer-events-none fill-gray-600 font-bold" text-anchor="middle">TAS</text>
+                <text x="585" y="425" class="pointer-events-none fill-gray-400 text-xs" text-anchor="middle">ACT</text>
+            </svg>
+        </div>
+
+        <!-- Right: Provider Details (30%) -->
+        <aside id="sidebar" class="md:w-3/10 bg-white p-8 rounded-xl shadow-md border border-gray-200 min-h-[400px]">
+            <div id="sidebar-content">
+                <h2 class="text-xl font-semibold text-gray-800 mb-4">Provider Details</h2>
+                <p id="placeholder-text" class="text-gray-500 italic">Hover or click a state to see details.</p>
+                <div id="details-view" class="hidden">
+                    <p class="text-sm uppercase tracking-wider text-gray-400 font-bold mb-1">Selected State</p>
+                    <h3 id="state-name" class="text-2xl font-bold text-blue-600 mb-6">-</h3>
+                    
+                    <p class="text-sm uppercase tracking-wider text-gray-400 font-bold mb-1">Provider</p>
+                    <p id="provider-name" class="text-xl text-gray-800 mb-8 font-medium">-</p>
+                    
+                    <a id="visit-btn" href="#" target="_blank" class="inline-block w-full text-center bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg transition-colors">
+                        Visit Provider
+                    </a>
+                </div>
+            </div>
+        </aside>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-100 border-t border-gray-200 py-12 px-8">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-xl font-bold text-gray-800 mb-4">DocuSign and FormsLiveSign</h2>
+            <p class="text-gray-600 leading-relaxed max-w-4xl">
+                DocuSign and REI FormsLiveSign are two digital signing providers that is fully integrated to Ailo Projects. 
+                Using these tools mean you can track signatures right from within the Projects view. 
+                REI FormsLiveSign might be available for you to use depending on the state you are in. 
+                This is the recommended solution and works seamlessly as part of REI Forms, Realworks or Forms Live. 
+                Alternatively, you can use DocuSign which also works with Ailo Projects. The choice is yours! 
+                Regardless of your choice, these signing tools will automatically work with Ailo when you are connect your forms tool. 
+                No additional steps are required.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        const stateData = {
+            'NSW': { name: 'New South Wales', provider: 'REI Forms Live', url: 'https://www.reiformslive.com.au/' },
+            'QLD': { name: 'Queensland', provider: 'Realworks', url: 'https://realworks.com.au/' },
+            'VIC': { name: 'Victoria', provider: 'Forms Live', url: 'https://www.formslive.com.au/' },
+            'WA': { name: 'Western Australia', provider: 'REI Forms Live', url: 'https://members.reiwa.com.au/s/products/rei-forms-live' },
+            'SA': { name: 'South Australia', provider: 'REI Forms Live', url: 'https://www.formslive.com.au/south-australia' },
+            'NT': { name: 'Northern Territory', provider: 'REI Forms Live', url: 'https://reint.com.au/members/membership-options' },
+            'ACT': { name: 'Australian Capital Territory', provider: 'REI Forms Live', url: 'https://www.reiact.com.au/rei-live-form/' },
+            'TAS': { name: 'Tasmania', provider: 'REI Forms Live', url: 'https://reit.com.au/members/become-a-reit-member/' }
+        };
+
+        const paths = document.querySelectorAll('.state-path');
+        const sidebar = document.getElementById('sidebar');
+        const placeholderText = document.getElementById('placeholder-text');
+        const detailsView = document.getElementById('details-view');
+        const stateNameEl = document.getElementById('state-name');
+        const providerNameEl = document.getElementById('provider-name');
+        const visitBtn = document.getElementById('visit-btn');
+
+        let lockedState = null;
+
+        function updateSidebar(stateCode, isClick = false) {
+            const data = stateData[stateCode];
+            if (!data) return;
+
+            placeholderText.classList.add('hidden');
+            detailsView.classList.remove('hidden');
+
+            stateNameEl.textContent = data.name;
+            providerNameEl.textContent = data.provider;
+            visitBtn.textContent = `Visit ${data.provider}`;
+            visitBtn.href = data.url;
+
+            if (isClick) {
+                // Clear previous active
+                paths.forEach(p => p.classList.remove('active'));
+                // Set new active
+                document.getElementById(stateCode).classList.add('active');
+                lockedState = stateCode;
+            }
+        }
+
+        paths.forEach(path => {
+            path.addEventListener('mouseenter', () => {
+                if (!lockedState) {
+                    updateSidebar(path.id);
+                }
+            });
+
+            path.addEventListener('mouseleave', () => {
+                if (!lockedState) {
+                    placeholderText.classList.remove('hidden');
+                    detailsView.classList.add('hidden');
+                }
+            });
+
+            path.addEventListener('click', () => {
+                updateSidebar(path.id, true);
+            });
+        });
+    </script>
+</body>
+</html>
