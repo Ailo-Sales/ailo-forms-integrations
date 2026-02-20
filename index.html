@@ -128,55 +128,78 @@
         const stateNameEl = document.getElementById('state-name');
         const providerNameEl = document.getElementById('provider-name');
         const visitBtn = document.getElementById('visit-btn');
+        const mapContainer = document.getElementById('map-container'); // Defined mapContainer globally
 
-        let lockedState = null;
+        let lockedState = null; // Stores the stateCode of the currently clicked/locked state
 
         // Map AU-prefixed IDs to standard state codes
         const auIdToStateCode = {
-            'AUNSW': 'NSW',
-            'AUVIC': 'VIC',
-            'AUQLD': 'QLD',
-            'AUWA': 'WA',
-            'AUSA': 'SA',
-            'AUTAS': 'TAS',
-            'AUNT': 'NT',
-            'AUACT': 'ACT'
+            'AUNSW': 'NSW', 'AUVIC': 'VIC', 'AUQLD': 'QLD', 'AUWA': 'WA',
+            'AUSA': 'SA', 'AUTAS': 'TAS', 'AUNT': 'NT', 'AUACT': 'ACT'
         };
 
-        function updateSidebar(stateCode, isClick = false) {
+        // Function to update sidebar to show specific state's data (without changing map colors)
+        function displaySidebarForState(stateCode) {
             const data = stateData[stateCode];
             if (!data) return;
-
             sidebarPlaceholder.classList.add('hidden');
             detailsView.classList.remove('hidden');
-
             stateNameEl.textContent = data.name;
             providerNameEl.textContent = data.provider;
             visitBtn.href = data.url;
+        }
 
-            if (isClick) {
-                document.querySelectorAll('.state-path').forEach(p => {
-                    p.style.fill = '#d1d5db'; /* Revert to default fill */
-                    p.classList.remove('active');
-                });
-                const targetAuId = Object.keys(auIdToStateCode).find(key => auIdToStateCode[key] === stateCode);
-                const target = document.getElementById(targetAuId); 
-                if (target) {
-                    target.style.fill = '#E61C5D'; // Ailo pink
-                    target.classList.add('active');
-                }
-                lockedState = stateCode;
+        // Function to manage state color (pink for active/hover, gray for default)
+        function applyStateColor(statePathElement, color) {
+            if (statePathElement) {
+                statePathElement.style.fill = color;
             }
+        }
+
+        // Function to reset all states to default gray
+        function resetAllStatesAppearance() {
+            document.querySelectorAll('.state-path').forEach(p => {
+                applyStateColor(p, '#d1d5db'); // Default gray
+                p.classList.remove('active');
+            });
+        }
+
+        // Function to reset sidebar to placeholder
+        function resetSidebarToPlaceholder() {
+            sidebarPlaceholder.classList.remove('hidden');
+            detailsView.classList.add('hidden');
+            stateNameEl.textContent = '';
+            providerNameEl.textContent = '';
+            visitBtn.href = '#';
+        }
+
+        // Main reset for everything (colors, sidebar, lockedState)
+        function clearSelectionAndReset() {
+            lockedState = null;
+            resetAllStatesAppearance();
+            resetSidebarToPlaceholder();
+        }
+
+        // Update sidebar logic for clicks (sets locked state)
+        function updateSidebarOnClick(stateCode) {
+            clearSelectionAndReset(); // First reset everything to ensure only one is active
+            lockedState = stateCode; // Lock the new state
+            
+            const targetAuId = Object.keys(auIdToStateCode).find(key => auIdToStateCode[key] === stateCode);
+            const target = document.getElementById(targetAuId); 
+            if (target) {
+                applyStateColor(target, '#E61C5D'); // Apply pink to the clicked state
+                target.classList.add('active'); // Mark as active
+            }
+            displaySidebarForState(stateCode); // Show its details
         }
 
         // Function to set up event listeners on loaded SVG paths
         function setupSvgInteractivity() {
             document.querySelectorAll('#map-container svg .state-path').forEach(path => {
-                // Get standard state code by stripping 'AU' prefix
                 const auId = path.id;
-                const stateCode = auId.replace('AU', ''); // Converts 'AUVIC' to 'VIC'
+                const stateCode = auId.replace('AU', '');
 
-                // Ensure the stateCode exists in stateData
                 if (stateData[stateCode]) {
                     // Remove hardcoded fill/stroke attributes from the SVG paths
                     path.removeAttribute('fill');
@@ -184,45 +207,59 @@
                     path.removeAttribute('style'); // Remove inline style to ensure CSS takes precedence
 
                     path.addEventListener('mouseenter', () => {
-                        if (lockedState !== stateCode) { // Only change fill if not the locked state
-                            path.style.fill = '#E61C5D'; /* Vibrant Ailo pink on hover */
-                            updateSidebar(stateCode);
+                        // Only change fill and update sidebar if no state is locked, or if hovering over a non-locked state
+                        if (lockedState === null || lockedState !== stateCode) {
+                            applyStateColor(path, '#E61C5D'); /* Vibrant Ailo pink on hover */
+                            displaySidebarForState(stateCode); // Temporarily update sidebar
                         }
                     });
                     
                     path.addEventListener('mouseleave', () => {
-                        if (lockedState !== stateCode) { // Only revert fill if not the locked state
-                            path.style.fill = '#d1d5db'; /* Darker gray default fill */
-                            sidebarPlaceholder.classList.remove('hidden');
-                            detailsView.classList.add('hidden');
+                        if (lockedState === null) { // If no state is locked, revert to default and hide sidebar
+                            applyStateColor(path, '#d1d5db');
+                            resetSidebarToPlaceholder();
+                        } else if (lockedState !== stateCode) { // If a state is locked, and leaving a non-locked state
+                            applyStateColor(path, '#d1d5db'); // Revert non-locked hovered state to gray
+                            displaySidebarForState(lockedState); // Restore sidebar to locked state's info
                         }
+                        // If mouse leaves the locked state, do nothing (it should stay pink and its info in sidebar)
                     });
                     
                     path.addEventListener('click', (e) => {
-                        e.stopPropagation();
-                        updateSidebar(stateCode, true);
+                        e.stopPropagation(); // Prevent event from bubbling to map-container
+                        updateSidebarOnClick(stateCode); // This function handles the click logic
                     });
                 }
             });
 
-            // Handle clicks outside states to unlock and reset fill
-            document.getElementById('map-container').addEventListener('click', (e) => {
-                if (!e.target.closest('.state-path')) { // If click is not on a state path
-                    lockedState = null;
-                    document.querySelectorAll('.state-path').forEach(p => {
-                        p.style.fill = '#d1d5db'; /* Darker gray default fill */
-                        p.classList.remove('active');
-                    });
-                    sidebarPlaceholder.classList.remove('hidden');
-                    detailsView.classList.add('hidden');
+            // Handle clicks outside states (but inside map-container) to unlock and reset fill
+            mapContainer.addEventListener('click', (e) => {
+                // If the click is not on a state path AND not on the sidebar itself
+                if (!e.target.closest('.state-path') && !e.target.closest('aside#sidebar')) {
+                    clearSelectionAndReset();
                 }
+            });
+
+            // Add close button to sidebar
+            const closeButtonHtml = `
+                <button id="sidebar-close-btn" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 focus:outline-none">
+                    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            `;
+            const sidebarDiv = document.querySelector('aside#sidebar > div'); // Targeting the inner div
+            sidebarDiv.insertAdjacentHTML('afterbegin', closeButtonHtml);
+            document.getElementById('sidebar-close-btn').addEventListener('click', clearSelectionAndReset);
+
+            // Ensure the "Open Provider Website" button doesn't trigger map-container reset
+            visitBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
             });
         }
 
         // Dynamic viewBox Calibration and SVG loading
         document.addEventListener('DOMContentLoaded', () => {
-            const mapContainer = document.getElementById('map-container');
-
             fetch('map.svg')
                 .then(response => response.text())
                 .then(svgData => {
