@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ailo Projects: Forms Provider Reference</title>
+    <title>Ailo Forms Integrations</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         .state-path {
@@ -15,7 +15,7 @@
         }
         .state-path:hover {
             filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
-            fill: #2563eb; /* Vibrant Ailo blue on hover */
+            fill: #E61C5D; /* Vibrant Ailo pink on hover */
         }
         #aust-map {
             width: 100%;
@@ -40,7 +40,7 @@
     <!-- Header -->
     <header class="bg-white border-b border-gray-200 py-6 px-8 shadow-sm">
         <div class="max-w-7xl mx-auto flex items-center justify-between">
-            <h1 class="text-2xl font-extrabold text-gray-900 tracking-tight">Ailo Projects: <span class="text-blue-600">Forms Provider Reference</span></h1>
+            <h1 class="text-2xl font-extrabold text-gray-900 tracking-tight">Ailo Forms Integrations</h1>
             <div class="text-sm font-medium text-gray-400 uppercase tracking-widest text-gray-400">Internal Use Only</div>
         </div>
     </header>
@@ -55,28 +55,28 @@
 
         <!-- Right: Provider Details (30%) -->
         <aside id="sidebar" class="lg:w-[30%] w-full sticky top-8">
-            <div class="bg-white p-10 rounded-3xl shadow-xl border border-blue-50 min-h-[500px] flex flex-col">
+            <div class="bg-white p-10 rounded-3xl shadow-xl border border-pink-50 min-h-[500px] flex flex-col">
                 <h2 class="text-2xl font-bold text-gray-900 mb-8 flex items-center">
-                    <span class="w-2 h-8 bg-blue-600 rounded-full mr-4"></span>
+                    <span class="w-2 h-8 bg-pink-600 rounded-full mr-4"></span>
                     Provider Details
                 </h2>
                 
                 <div id="placeholder-text" class="flex-grow flex flex-col items-center justify-center text-center px-4">
                     <div class="w-20 h-20 bg-gray-50 rounded-full flex items-center justify-center mb-6">
-                        <svg class="w-10 h-10 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122"></path></svg>
+                        <svg class="w-10 h-10 text-pink-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122"></path></svg>
                     </div>
                     <p class="text-gray-400 text-lg font-medium">Select a state on the map to view regional form providers.</p>
                 </div>
 
                 <div id="details-view" class="hidden flex-grow flex flex-col animate-in slide-in-from-right-4 duration-500">
                     <div class="mb-10">
-                        <p class="text-xs uppercase tracking-[0.2em] text-blue-500 font-black mb-3">Selected Territory</p>
+                        <p class="text-xs uppercase tracking-[0.2em] text-pink-500 font-black mb-3">Selected Territory</p>
                         <h3 id="state-name" class="text-4xl font-extrabold text-gray-900"></h3>
                     </div>
                     
-                    <div class="mb-12 p-6 bg-blue-50 rounded-2xl border border-blue-100">
-                        <p class="text-xs uppercase tracking-[0.2em] text-blue-400 font-black mb-3">Primary Provider</p>
-                        <p id="provider-name" class="text-2xl text-blue-900 font-bold"></p>
+                    <div class="mb-12 p-6 bg-pink-50 rounded-2xl border border-pink-100">
+                        <p class="text-xs uppercase tracking-[0.2em] text-pink-400 font-black mb-3">Primary Provider</p>
+                        <p id="provider-name" class="text-2xl text-pink-900 font-bold"></p>
                     </div>
                     
                     <div class="mt-auto">
@@ -162,7 +162,7 @@
                 const targetAuId = Object.keys(auIdToStateCode).find(key => auIdToStateCode[key] === stateCode);
                 const target = document.getElementById(targetAuId); 
                 if (target) {
-                    target.setAttribute('fill', '#2563eb');
+                    target.style.fill = '#E61C5D'; // Ailo pink
                     target.classList.add('active');
                 }
                 lockedState = stateCode;
@@ -185,7 +185,7 @@
 
                     path.addEventListener('mouseenter', () => {
                         if (!lockedState) {
-                            path.style.fill = '#FF0066'; /* Vibrant Ailo red on hover */
+                            path.style.fill = '#E61C5D'; /* Vibrant Ailo pink on hover */
                             updateSidebar(stateCode);
                         }
                     });
